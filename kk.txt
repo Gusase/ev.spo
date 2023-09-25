@@ -1,0 +1,5 @@
+https://github.com/jwilsson/spotify-web-api-php/blob/main/docs/method-reference/SpotifyWebAPI.md#getartist
+
+////////////////////////////
+
+https://github.com/jwilsson/spotify-web-api-php/blob/main/docs/examples/access-token-with-client-credentials-flow.md
