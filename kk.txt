@@ -6,4 +6,4 @@ https://github.com/jwilsson/spotify-web-api-php/blob/main/docs/examples/access-t
 
 ////////////////////////////
 
-https://developer.spotify.com/dashboard/9d0a604233784f4d90f9501ceac20511/settings
+https://developer.spotify.com/dashboard/
