@@ -7,3 +7,54 @@ https://github.com/jwilsson/spotify-web-api-php/blob/main/docs/examples/access-t
 ////////////////////////////
 
 https://developer.spotify.com/dashboard/
+
+////////////////////////////
+
+--auth.php
+
+use SpotifyWebAPI\Session;
+session_start();
+require 'vendor/autoload.php';
+
+$session = new Session(
+  '9d0a604233784f4d90f9501ceac20511',
+  '40335a95d1374c6699f9e0463da046eb'
+);
+
+$session->requestCredentialsToken();
+$_SESSION['accessToken'] = $session->getAccessToken();
+
+// Store the access token somewhere. In a database for example.
+
+// Send the user along and fetch some data!
+header('Location: app.php');
+die();
+
+--app.php
+
+use SpotifyWebAPI\SpotifyWebAPI;
+
+session_start();
+require 'vendor/autoload.php';
+
+// Fetch the saved access token from somewhere. A database for example.
+
+$api = new SpotifyWebAPI();
+$api->setAccessToken($_SESSION['accessToken']);
+
+// It's now possible to request data from the Spotify catalog
+$user =   $api->getUser('31ct4p6ym3wucoec6h7begyq3wke');
+
+var_dump(
+  $user
+);
+
+?>
+
+<img src="<?= $user->images[1]->url ?>" alt="<?= $user->display_name ?>" title="<?= $user->display_name ?>">
+
+////////////////////////////
+
+tmbh
+
+https://ev.sptfy.test/?auth=success
