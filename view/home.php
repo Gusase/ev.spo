@@ -1,49 +1,17 @@
-<?php
-$session = new SpotifyWebAPI\Session(
-  CLIENT,
-  CLIENT_SECRET
-);
-
-if ($_SESSION['accessToken']) {
-  $session->setAccessToken($_SESSION['accessToken']);
-  $session->setRefreshToken($_SESSION['refreshToken']);
-} else {
-  // Or request a new access token
-  $session->refreshAccessToken($_SESSION['refreshToken']);
-  $_SESSION['accessToken'] = $session->getAccessToken();
-  $_SESSION['refreshToken'] = $session->getRefreshToken();
-}
-
-$options = [
-  'auto_refresh' => true,
-];
-
-$api = new SpotifyWebAPI\SpotifyWebAPI($options, $session);
-$api->setSession($session);
-// Fetch the saved access token from somewhere. A session for example.
-
-$_SESSION['me'] = $api->me();
-?>
-
-<div class="container mx-auto p-9 flex min-h-screen items-center justify-center">
-  <div class="max-w-[734px] w-full">
-    <div class="flex flex-col gap-y-5">
-      <div class="mb-4">
-        <div class="flex flex-col items-center dark:text-white text-center">
-          <div class="mb-8">
-            <h2 class="font-bold tracking-tight text-3xl">Logged in as</h2>
+<div class="min-h-screen w-full">
+  <div class="container py-20">
+    <h3 class="text-3xl font-semibold dark:text-white"><?= Helper::greetings('Asia/Jakarta') ?></h3>
+    <div class="grid grid-cols-3 gap-6 mt-10">
+      <?php foreach ($api->getMyRecentTracks(['limit' => 6])->items as $items) : ?>
+        <?php foreach ($items as $track) : ?>
+          <div class="overflow-hidden relative max-w-full bg-white shadow-lg ring-1 ring-black/5 rounded-xl flex items-center gap-6 dark:bg-slate-800 dark:highlight-white/5">
+            <img class="w-28 h-28 shadow-lg" src="https://images.unsplash.com/photo-1501196354995-cbb51c65aaea?ixlib=rb-1.2.1&amp;ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&amp;auto=format&amp;fit=facearea&amp;facepad=4&amp;w=256&amp;h=256&amp;q=80">
+            <div class="min-w-0 py-5 pr-5">
+              <div class="text-slate-900 font-bold text-lg truncate dark:text-slate-200"><?= $track->album->name ?></div>
+            </div>
           </div>
-          <div class="mb-8">
-            <img src="<?= $_SESSION['me']->images[1]->url ?>" class="w-14 h-14 rounded-full" alt="">
-          </div>
-          <div class="mb-8">
-            <?= $_SESSION['me']->display_name ?>
-          </div>
-          <div class="my-2">
-            <button type="submit" name="go" class="w-full text-black focus:scale-100 focus:ring-2 focus:outline-none focus:ring-white font-bold hover:scale-105 rounded-full bg-[#1db954] focus:bg-[#1db954]/80 text-sm tracking-wider px-5 py-3 text-center">Account Overview</button>
-          </div>
-        </div>
-      </div>
+        <?php endforeach; ?>
+      <?php endforeach; ?>
     </div>
   </div>
 </div>

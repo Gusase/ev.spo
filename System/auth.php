@@ -1,5 +1,4 @@
 <?php
-require_once __DIR__ . '/../vendor/autoload.php';
 require_once __DIR__ . '/const.php';
 
 $session = new SpotifyWebAPI\Session(
@@ -29,3 +28,5 @@ $options = [
   ],
   'state' => $_SESSION['state'],
 ];
+
+header('Location: ' . $session->getAuthorizeUrl($options));

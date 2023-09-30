@@ -1,18 +1,32 @@
 <?php
 session_start();
 
-require_once __DIR__ . '/System/redirectMain.php';
 require_once __DIR__ . '/vendor/autoload.php';
 require_once __DIR__ . '/System/const.php';
+require_once __DIR__ . '/System/Helper.php';
+require_once __DIR__ . '/System/SpotifyApi.php';
+require_once __DIR__ . '/System/redirectMain.php';
 
-$v = isset($_GET['v']) ? $_GET['v'] : '';
-
-if (isset($_SESSION['login'])) {
+$v = isset($_GET['v']) ? $_GET['v'] : $_GET;
+if (isset($_SESSION['auth'])) {
+  $page = redirect('auth');
+  // var_dump($page);
+  // die;
+  // unset($_SESSION['auth']);
+} else {
   $page = redirect($v);
-}else{
+  if (isset($_SESSION['login'])) {
+    $spotify = new SpotifyApi();
+    $api = $spotify->api();
+  }
+}
+if (!isset($_SESSION['login'])) {
   $page = redirect('login');
 }
+// var_dump($page);
+// die;
 
+// bisa bjir
 ?>
 
 

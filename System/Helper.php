@@ -5,14 +5,16 @@
  */
 class Helper
 {
-  public static function airingDate($first, $last): object
+  public static function greetings(string $timezone): string
   {
-    $ds = date('Y', strtotime($first));
-    $de = (isset($last) && date('Y', strtotime($last)) != date('Y')) ? date('Y', strtotime($last)) : null;
-
-    return (object)[
-      'start' => $ds,
-      'last' => $de,
-    ];
+    date_default_timezone_set($timezone);
+    $Hour = date('G');
+    if ($Hour >= 0 && $Hour <= 12) {
+      return "Good Morning";
+    } else if ($Hour >= 12 && $Hour <= 18) {
+      return "Good Afternoon";
+    } else if ($Hour >= 18 || $Hour <= 24) {
+      return "Good Evening";
+    }
   }
 }
