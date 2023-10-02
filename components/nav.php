@@ -11,7 +11,19 @@
         <svg class="w-4 h-4 text-gray-800 mr-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 18">
           <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 13v-3a9 9 0 1 0-18 0v3m2-3h3v7H3a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2Zm11 0h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2h-3v-7Z" />
         </svg>
-        Now listen to&nbsp;<a href="<?= $api->getMyCurrentTrack()->item->external_urls->spotify ?>" title="By <?= $api->getMyCurrentTrack()->item->album->artists[0]->name ?>" class="font-semibold hover:underline"><?= $api->getMyCurrentTrack()->item->name ?></a>
+        <?php
+        if ($api->getMyCurrentTrack()->currently_playing_type != 'ad') :
+          $artists = [];
+          foreach ($api->getMyCurrentTrack()->item->artists as $artist) {
+            $artists[] = $artist->name;
+          }
+
+          $artistNames = implode(', ', $artists);
+        ?>
+          Now listen to&nbsp;<a href="<?= $api->getMyCurrentTrack()->item->external_urls->spotify ?>" title="By <?= $artistNames ?>" class="font-semibold hover:underline"><?= $api->getMyCurrentTrack()->item->name ?></a>
+        <?php else : ?>
+          Advertisement
+        <?php endif; ?>
       </p>
       <?php if (!$api->getMyCurrentTrack()->is_playing) : ?>
         <span href="#" class="flex-none rounded-full ml-3 bg-gray-900 px-3.5 py-1 text-sm font-semibold text-white shadow-sm cursor-default">Paused</span>
@@ -27,7 +39,7 @@
     </div>
   </div>
 <?php endif; ?>
-<nav class="bg-white border-gray-200 z-20 dark:border-gray-600 sticky top-0 inset-x-0 dark:bg-gray-950/90 backdrop-blur-sm">
+<nav class="bg-white border-gray-200 z-20 dark:border-gray-600 sticky top-0 inset-x-0 dark:bg-[#181818]/95 backdrop-blur-sm">
   <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl p-4">
     <a href="http://ev.sptfy.test/flex items-center">
       <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">EvSpotify</span>
@@ -53,7 +65,7 @@
             </li>
           </ul>
         </div>
-        <button data-collapse-toggle="navbar-user" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-user" aria-expanded="false">
+        <button data-collapse-toggle="navbar-user" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-900 dark:focus:ring-gray-600" aria-controls="navbar-user" aria-expanded="false">
           <span class="sr-only">Open main menu</span>
           <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15" />

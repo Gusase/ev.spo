@@ -24,7 +24,7 @@ function redirect($url): array
       break;
     default:
       return [
-        'title' => 'EvSpotify',
+        'title' => 'Dashboard - EvSpotify',
         'page' => 'view/home.php'
       ];
       break;

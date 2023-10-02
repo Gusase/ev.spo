@@ -17,4 +17,19 @@ class Helper
       return "Good Evening";
     }
   }
+
+  public static function duration(int $milliseconds): string
+  {
+    // Mengubah milidetik menjadi detik
+    $seconds = intval($milliseconds / 1000); // biang kerok nya disini bjir #float jd int
+
+    // Menghitung jumlah menit dan detik
+    $minutes = floor($seconds / 60);
+    $seconds %= 60;
+
+    // Format menit dan detik ke dalam "m:ss"
+    $timeFormat = sprintf("%d:%02d", $minutes, $seconds);
+
+    return $timeFormat;
+  }
 }

@@ -41,4 +41,4 @@
   </script>
 </head>
 
-<body class="antialiased text-slate-500 dark:text-slate-400 bg-white dark:bg-gray-950 fd">
+<body class="antialiased text-slate-500 dark:text-slate-400 bg-white dark:bg-[#121212] fd">
